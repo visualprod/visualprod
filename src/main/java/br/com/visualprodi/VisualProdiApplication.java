@@ -21,7 +21,7 @@ import br.com.visualprodi.services.repositories.FuncionarioRepository;
 import br.com.visualprodi.services.repositories.SetorRepository;
 
 @SpringBootApplication
-public class VisualprodiApplication implements CommandLineRunner {
+public class VisualProdiApplication implements CommandLineRunner {
 
 	@Autowired
 	private CargoRepository cargoRepository;
@@ -36,7 +36,7 @@ public class VisualprodiApplication implements CommandLineRunner {
 	private FuncionarioRepository funcionarioRepository;
 
 	public static void main(String[] args) {
-		SpringApplication.run(VisualprodiApplication.class, args);
+		SpringApplication.run(VisualProdiApplication.class, args);
 	}
 
 	@Override
