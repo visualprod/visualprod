@@ -9,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Service;
 
+import br.com.visualprodi.domain.Endereco;
 import br.com.visualprodi.domain.Funcionario;
 import br.com.visualprodi.services.exceptions.DataIntegrityException;
 import br.com.visualprodi.services.exceptions.ObjectNotFoundException;
@@ -33,13 +34,23 @@ public class FuncionarioService {
 	private EnderecoRepository repoEndereco;
 
 	public List<Funcionario> findAll() {
-		return repo.findAll();
+		List<Funcionario> listaFuncionarios = repo.findAll();
+		for (Funcionario funcionario : listaFuncionarios) {
+			for (Endereco endereco : funcionario.getEnderecos()) {
+				endereco.setFuncionarios(null);
+			}
+		}
+		return listaFuncionarios;
 	}
 
 	public Funcionario find(Integer id) {
 		Optional<Funcionario> obj = repo.findById(id);
-		return obj.orElseThrow(() -> new ObjectNotFoundException(
+		Funcionario funcionario = obj.orElseThrow(() -> new ObjectNotFoundException(
 				"Objeto não encontrado! Id: " + id + ", Tipo: " + Funcionario.class.getName()));
+		for (Endereco endereco : funcionario.getEnderecos()) {
+			endereco.setFuncionarios(null);
+		}
+		return funcionario;
 	}
 
 	@Transactional
