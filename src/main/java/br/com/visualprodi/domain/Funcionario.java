@@ -88,49 +88,49 @@ public class Funcionario implements Serializable {
 		this.status = status;
 	}
 
-	@Column(nullable=false, length=15)
+//	@Column(nullable=false, length=15)
 	private String cpf;
 	
-	@Column(nullable=false, name = "hora_saida")
+//	@Column(nullable=false, name = "hora_saida")
 	private Date horaSaida;
 	
-	@Column(nullable=false, name = "data_nascimento")
+//	@Column(nullable=false, name = "data_nascimento")
 	private Date dataNascimento;
 	
-	@Column(nullable=false, name = "hora_entrada")
+//	@Column(nullable=false, name = "hora_entrada")
 	private Date horaEntrada;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String celular;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String rg;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String operacional;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String email;
 	
-	@Column(nullable=false, length=20, name = "telefone_fixo")
+//	@Column(nullable=false, length=20, name = "telefone_fixo")
 	private String telefoneFixo;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String nome;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private BigDecimal salario;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String senha;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String login;
 	
-	@Column(nullable=false, length=20)
+//	@Column(nullable=false, length=20)
 	private String sobrenome;
 	
-	@Column(nullable=false)
+//	@Column(nullable=false)
 	private Boolean status;
 	
 	public List<Endereco> getEnderecos() {

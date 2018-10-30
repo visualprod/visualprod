@@ -53,7 +53,7 @@
 			<AppenderRef ref="Console-Appender" />
 		</Logger>
 		<Root>
-			<AppenderRef ref="App-Appender" />
+			<AppenderRef ref="Console-Appender" />
 		</Root>
 	</Loggers>
 </Configuration>

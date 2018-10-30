@@ -12,13 +12,21 @@ import org.springframework.stereotype.Service;
 import br.com.visualprodi.domain.Funcionario;
 import br.com.visualprodi.services.exceptions.DataIntegrityException;
 import br.com.visualprodi.services.exceptions.ObjectNotFoundException;
+import br.com.visualprodi.services.repositories.CargoRepository;
 import br.com.visualprodi.services.repositories.FuncionarioRepository;
+import br.com.visualprodi.services.repositories.SetorRepository;
 
 @Service
 public class FuncionarioService {
 
 	@Autowired
 	private FuncionarioRepository repo;
+	
+	@Autowired
+	private SetorRepository repoSetor;
+	
+	@Autowired
+	private CargoRepository repoCargo;
 
 	public List<Funcionario> findAll() {
 		return repo.findAll();
@@ -33,6 +41,12 @@ public class FuncionarioService {
 	@Transactional
 	public Funcionario insert(Funcionario obj) {
 		obj.setId(null);
+		if (obj.getSetor() != null) {
+			obj.setSetor(repoSetor.save(obj.getSetor()));
+		}
+		if (obj.getCargo() != null) {
+			obj.setCargo(repoCargo.save(obj.getCargo()));
+		}
 		obj = repo.save(obj);
 		return obj;
 	}
