@@ -13,6 +13,7 @@ import br.com.visualprodi.domain.Funcionario;
 import br.com.visualprodi.services.exceptions.DataIntegrityException;
 import br.com.visualprodi.services.exceptions.ObjectNotFoundException;
 import br.com.visualprodi.services.repositories.CargoRepository;
+import br.com.visualprodi.services.repositories.EnderecoRepository;
 import br.com.visualprodi.services.repositories.FuncionarioRepository;
 import br.com.visualprodi.services.repositories.SetorRepository;
 
@@ -27,6 +28,9 @@ public class FuncionarioService {
 	
 	@Autowired
 	private CargoRepository repoCargo;
+	
+	@Autowired
+	private EnderecoRepository repoEndereco;
 
 	public List<Funcionario> findAll() {
 		return repo.findAll();
@@ -41,17 +45,31 @@ public class FuncionarioService {
 	@Transactional
 	public Funcionario insert(Funcionario obj) {
 		obj.setId(null);
+		obj = verificarCamposInternos(obj);
+		obj = repo.save(obj);
+		return obj;
+	}
+
+	private Funcionario verificarCamposInternos(Funcionario obj) {
 		if (obj.getSetor() != null) {
 			obj.setSetor(repoSetor.save(obj.getSetor()));
 		}
 		if (obj.getCargo() != null) {
 			obj.setCargo(repoCargo.save(obj.getCargo()));
 		}
-		obj = repo.save(obj);
+		if (obj.getEnderecos() != null) {
+			for (int i = 0; i < obj.getEnderecos().size(); i++) {
+				if (obj.getEnderecos().get(i) != null) {
+					obj.getEnderecos().set(i, repoEndereco.save(obj.getEnderecos().get(i)));
+					obj.getEnderecos().get(i).getFuncionarios().add(obj);
+				}
+			}
+		}
 		return obj;
 	}
 
 	public Funcionario update(Funcionario obj) {
+		obj = verificarCamposInternos(obj);
 		return repo.save(obj);
 	}
 
